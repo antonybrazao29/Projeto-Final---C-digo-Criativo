@@ -67,7 +67,7 @@ function draw() {
   textAlign(CENTER, CENTER);
   textSize(16);
 
-  text("PULSA LAS TECLAS PARA TOCAR", 400, 530);
+  text("USA AS TECLAS PARA TOCAR", 400, 530);
 
   // Mostrar nota musical
   fill(30, 65, 100);
