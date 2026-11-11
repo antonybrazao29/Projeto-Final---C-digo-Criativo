@@ -1,7 +1,18 @@
-html, body {
+body {
+    background-color: white;
     margin: 0;
     padding: 0;
-  }
-  canvas {
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+canvas {
     display: block;
-  }
+    width: 800px !important;
+    height: 800px !important;
+     }

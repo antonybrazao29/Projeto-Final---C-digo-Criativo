@@ -21,12 +21,6 @@ let oscillator;
 let audioStarted = false;
 let currentNote = "—";
 
-// Orden de los agujeros:
-// Q W E R Y U I O C N
-// 1 = cubierto
-// 0 = abierto
-
-// Digitaciones de la escala de Do mayor
 let fingering = {
   "1111111111": { frequency: 523.25, note: "DO5" },
   "1111111011": { frequency: 587.33, note: "RE5" },
@@ -40,23 +34,31 @@ let fingering = {
 
 
 function setup() {
-  createCanvas(800, 600);
 
-  // Crear el oscilador
+  // Crear canvas
+  let cnv = createCanvas(800, 800);
+
+  // Imagen SVG como fondo
+  cnv.style("background-image", 'url("ocarina vector.svg")');
+  cnv.style("background-repeat", "no-repeat");
+  cnv.style("background-position", "center");
+  cnv.style("background-size", "750px 592px");
+
+  // Crear oscilador
   oscillator = new p5.Oscillator("sine");
 
   // Empezar en silencio
   oscillator.amp(0);
 
-  // Liberar todas las teclas al perder el foco
+  // Liberar teclas al perder el foco
   window.addEventListener("blur", releaseAllKeys);
 }
 
 
 function draw() {
-  background(239, 235, 220);
 
-  drawOcarina();
+  clear();
+
   drawHoles();
 
   // Indicador de funcionamiento
@@ -64,53 +66,17 @@ function draw() {
   fill(100);
   textAlign(CENTER, CENTER);
   textSize(16);
+
   text("PULSA LAS TECLAS PARA TOCAR", 400, 530);
 
+  // Mostrar nota musical
   fill(30, 65, 100);
-  textAlign(CENTER, CENTER);
   textSize(32);
   textStyle(BOLD);
+
   text(currentNote, 400, 475);
 
   textStyle(NORMAL);
-}
-
-
-// Dibujar la ocarina
-function drawOcarina() {
-
-  // Sombra
-  noStroke();
-  fill(0, 0, 0, 35);
-  ellipse(420, 345, 500, 225);
-
-  // Boquilla
-  fill(18, 76, 125);
-  ellipse(185, 275, 125, 65);
-
-  // Cuerpo principal
-  fill(30, 112, 177);
-  stroke(12, 65, 110);
-  strokeWeight(4);
-
-  beginShape();
-  vertex(175, 290);
-  bezierVertex(190, 210, 300, 175, 420, 195);
-  bezierVertex(560, 170, 680, 240, 675, 320);
-  bezierVertex(670, 410, 560, 445, 425, 430);
-  bezierVertex(290, 445, 180, 390, 175, 290);
-  endShape(CLOSE);
-
-  // Decoración dorada
-  noFill();
-  stroke(220, 183, 91);
-  strokeWeight(3);
-  ellipse(420, 310, 420, 175);
-
-  // Símbolo triangular
-  noStroke();
-  fill(235, 198, 105);
-  triangle(420, 215, 395, 258, 445, 258);
 }
 
 
@@ -130,9 +96,11 @@ function drawHoles() {
 
     // Superficie azul cuando está cubierto
     if (h.covered) {
+
       fill(74, 157, 211);
       stroke(12, 65, 110);
       strokeWeight(3);
+
       ellipse(h.x, h.y, h.r * 2);
     }
 
@@ -141,6 +109,7 @@ function drawHoles() {
     fill(255);
     textAlign(CENTER, CENTER);
     textSize(12);
+
     text(h.key.toUpperCase(), h.x, h.y);
   }
 }
@@ -163,33 +132,36 @@ async function startOcarina() {
 }
 
 
-// Actualizar el sonido según la digitación
+// Actualizar sonido según la digitación
 function updateOcarinaSound() {
 
-  // Evitar reproducir antes de activar el audio
   if (!audioStarted) {
     return;
   }
 
-  // Construir la combinación de agujeros
+  // Construir combinación de agujeros
   let combination = "";
 
   for (let h of holes) {
     combination += h.covered ? "1" : "0";
   }
-  
-  // Buscar la frecuencia correspondiente
+
+  // Buscar frecuencia correspondiente
   let result = fingering[combination];
 
-  // Si la combinación no existe, silenciar
+  // Si no existe combinación, silenciar
   if (result === undefined) {
+
     currentNote = "-";
     oscillator.amp(0, 0.08);
+
     return;
   }
+
+  // Actualizar nota
   currentNote = result.note;
 
-  // Reproducir la nota automáticamente
+  // Reproducir frecuencia
   oscillator.freq(result.frequency, 0.08);
   oscillator.amp(0.18, 0.08);
 
@@ -200,17 +172,17 @@ function updateOcarinaSound() {
 // Detectar teclas pulsadas
 function keyPressed(event) {
 
-  // Activar el audio con la primera interacción
+  // Activar audio
   startOcarina();
 
   let pressedKey = event.key.toLowerCase();
 
-  // Evitar repeticiones del teclado
+  // Evitar repeticiones
   if (event.repeat) {
     return false;
   }
 
-  // Cubrir el agujero correspondiente
+  // Cubrir agujero correspondiente
   for (let h of holes) {
 
     if (pressedKey === h.key) {
@@ -232,7 +204,7 @@ function keyReleased(event) {
 
   let releasedKey = event.key.toLowerCase();
 
-  // Abrir el agujero correspondiente
+  // Abrir agujero correspondiente
   for (let h of holes) {
 
     if (releasedKey === h.key) {
