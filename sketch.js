@@ -97,7 +97,7 @@ function draw() {
   textSize(14);
   textStyle(NORMAL);
 
-  text("USA AS TECLAS PARA TOCAR", 400, 540);
+  text("Use the keyboard to play", 400, 540);
 
 }
 
