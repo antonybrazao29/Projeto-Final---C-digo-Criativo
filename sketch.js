@@ -1,20 +1,18 @@
 
 let holes = [
-  // Mano izquierda: agujeros frontales
   { id: 0, key: "q", x: 200, y: 390, r: 25, covered: false, visible: true },
   { id: 1, key: "w", x: 250, y: 350, r: 25, covered: false, visible: true },
   { id: 2, key: "e", x: 290, y: 299, r: 25, covered: false, visible: true },
   { id: 3, key: "r", x: 320, y: 245, r: 25, covered: false, visible: true },
   { id: 4, key: "2", x: 285, y: 390, r: 15, covered: false, visible: true },
 
-  // Mano derecha: agujeros frontales
   { id: 5, key: "y", x: 430, y: 345, r: 25, covered: false, visible: true },
   { id: 6, key: "u", x: 460, y: 290, r: 25, covered: false, visible: true },
   { id: 7, key: "i", x: 500, y: 237, r: 25, covered: false, visible: true },
   { id: 8, key: "o", x: 545, y: 190, r: 25, covered: false, visible: true },
   { id: 9, key: "7", x: 410, y: 260, r: 15, covered: false, visible: true },
 
-  // Agujeros posteriores: pulgares
+
   { id: 10, key: "c",x: 90, y: 345, r: 25, covered: false, visible: true },
   { id: 11, key: "n",x: 540, y: 440, r: 25, covered: false, visible: true }
 ];
@@ -47,25 +45,24 @@ let fingering = {
 
 function setup() {
 
-  // Crear canvas con proporciones horizontales
   let cnv = createCanvas(800, 650);
 
-  // Introducir canvas en el contenedor HTML
+
   cnv.parent("instrument-stage");
 
-  // Imagen SVG como fondo
+ 
   cnv.style("background-image", 'url("ocarina vector.svg")');
   cnv.style("background-repeat", "no-repeat");
   cnv.style("background-position", "center");
   cnv.style("background-size", "95% 95%");
 
-  // Crear oscilador
+
   oscillator = new p5.Oscillator("sine");
 
-  // Empezar en silencio
+
   oscillator.amp(0);
 
-  // Liberar teclas al perder el foco
+
   window.addEventListener("blur", releaseAllKeys);
 }
 
@@ -75,26 +72,26 @@ function draw() {
 
   clear();
 
-  // Dibujar los agujeros de la ocarina
+  
   drawHoles();
 
-  // Configuración general de textos
+ 
   textAlign(CENTER, CENTER);
   noStroke();
 
-  // Indicador de nota
+
   fill(255);
   textSize(38);
   textStyle(BOLD);
 
   text(currentNote, 400, 475);
 
-  // Línea decorativa debajo de la nota
+ 
   stroke(74, 157, 211);
   strokeWeight(3);
   line(365, 505, 435, 505);
 
-  // Instrucciones
+  
   noStroke();
   fill(100, 115, 125);
   textSize(14);
@@ -102,16 +99,11 @@ function draw() {
 
   text("USA AS TECLAS PARA TOCAR", 400, 540);
 
-  // Texto secundario
-  fill(150);
-  textSize(11);
-
-  text("PULSA Y MANTÉN PARA CUBRIR LOS AGUJEROS", 400, 565);
 }
 
 
 
-// Dibujar los agujeros
+
 
 function drawHoles() {
 
@@ -121,16 +113,15 @@ function drawHoles() {
       continue;
     }
 
-    // Sombra sutil
+   
     noStroke();
     fill(0, 0, 0, 35);
     ellipse(h.x, h.y + 2, h.r * 2.2);
 
-    // Agujero principal
     fill(8, 38, 64);
     ellipse(h.x, h.y, h.r * 2);
 
-    // Superficie azul cuando está cubierto
+
     if (h.covered) {
 
       fill(74, 157, 211);
@@ -144,7 +135,7 @@ function drawHoles() {
       ellipse(h.x - 4, h.y - 4, h.r * 0.6);
     }
 
-    // Letra de cada botón
+   
     noStroke();
     fill(255);
     textAlign(CENTER, CENTER);
@@ -159,7 +150,7 @@ function drawHoles() {
 
 
 
-// Activar el audio del navegador
+
 async function startOcarina() {
 
   if (!audioStarted) {
@@ -176,24 +167,24 @@ async function startOcarina() {
 }
 
 
-// Actualizar sonido según la digitación
+
 function updateOcarinaSound() {
 
   if (!audioStarted) {
     return;
   }
 
-  // Construir combinación de agujeros
+
   let combination = "";
 
   for (let h of holes) {
     combination += h.covered ? "1" : "0";
   }
 
-  // Buscar frecuencia correspondiente
+
   let result = fingering[combination];
 
-  // Si no existe combinación, silenciar
+  
   if (result === undefined) {
 
     currentNote = "-";
@@ -202,10 +193,10 @@ function updateOcarinaSound() {
     return;
   }
 
-  // Actualizar nota
+
   currentNote = result.note;
 
-  // Reproducir frecuencia
+
   oscillator.freq(result.frequency, 0.08);
   oscillator.amp(0.18, 0.08);
 
@@ -213,20 +204,18 @@ function updateOcarinaSound() {
 }
 
 
-// Detectar teclas pulsadas
 function keyPressed(event) {
 
-  // Activar audio
   startOcarina();
 
   let pressedKey = event.key.toLowerCase();
 
-  // Evitar repeticiones
+
   if (event.repeat) {
     return false;
   }
 
-  // Cubrir agujero correspondiente
+
   for (let h of holes) {
 
     if (pressedKey === h.key) {
@@ -243,12 +232,11 @@ function keyPressed(event) {
 }
 
 
-// Detectar teclas liberadas
+
 function keyReleased(event) {
 
   let releasedKey = event.key.toLowerCase();
 
-  // Abrir agujero correspondiente
   for (let h of holes) {
 
     if (releasedKey === h.key) {
@@ -265,7 +253,6 @@ function keyReleased(event) {
 }
 
 
-// Liberar todas las teclas al perder el foco
 function releaseAllKeys() {
 
   for (let h of holes) {
