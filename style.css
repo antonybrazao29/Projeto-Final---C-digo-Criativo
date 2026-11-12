@@ -1,18 +1,335 @@
-body {
-    background-color: white;
+
+/* RESET */
+
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
-main {
+
+/* GENERAL */
+
+body {
+    background-color: #ffffff;
+    color: #202b42;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.page {
+    width: 94%;
+    max-width: 1700px;
+    margin: 0 auto;
+    padding: 45px 50px;
+}
+
+
+/* HEADER */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding-bottom: 28px;
+    border-bottom: 1px solid #e8eaf0;
+}
+
+.logo h1 {
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: #293e96;
+}
+
+.logo h1 span {
+    color: #79a9e8;
+}
+
+.logo p {
+    margin-top: 5px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #9299a8;
+}
+
+
+/* STATUS */
+
+.header-status {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    font-size: 10px;
+    letter-spacing: 1px;
+    font-weight: bold;
+    color: #687386;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #51b889;
+    border-radius: 50%;
+}
+
+
+/* MAIN LAYOUT */
+
+.main-content {
+    display: grid;
+
+    grid-template-columns: minmax(0, 1fr) 300px;
+
+    gap: 35px;
+
+    margin-top: 50px;
+
+    align-items: start;
+}
+
+/* INSTRUMENT */
+
+.instrument-section {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* HEADING */
+
+.section-heading {
+    width: 100%;
+}
+
+/* INSTRUMENT AREA */
+
+#instrument-stage {
+    width: 100%;
+    margin-top: 25px;
+}
+
+
+//* P5 CANVAS */
+
+#instrument-stage {
+    width: 100%;
+    margin-top: 25px;
+
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+
+    background: #ffffff;
+    border: 1px solid #edf0f5;
+    border-radius: 14px;
+
+    overflow: hidden;
 }
 
-canvas {
+#instrument-stage canvas {
     display: block;
-    width: 800px !important;
-    height: 800px !important;
-     }
+
+    width: 100%;
+    max-width: 1000px;
+    height: auto;
+
+    margin: 0 auto;
+}
+
+/* CAPTION */
+
+.instrument-caption {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    padding: 17px 5px;
+
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: #a0a7b4;
+}
+
+
+/* SIDE PANEL */
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.control-card {
+    padding: 22px;
+
+    border: 1px solid #e9ecf2;
+    border-radius: 12px;
+
+    background-color: #ffffff;
+}
+
+.control-card h3 {
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.control-card > p {
+    font-size: 12px;
+    line-height: 1.6;
+    color: #9299a8;
+    margin-bottom: 24px;
+}
+
+.control-card h4 {
+    font-size: 10px;
+    letter-spacing: 1.3px;
+    color: #8992a4;
+
+    margin-bottom: 12px;
+    margin-top: 22px;
+}
+
+
+/* KEYBOARD */
+
+.key-group {
+    display: flex;
+    gap: 7px;
+}
+
+kbd {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 40px;
+    height: 42px;
+
+    background-color: #f3f5fa;
+    border: 1px solid #e1e5ed;
+    border-radius: 7px;
+
+    color: #293e96;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: bold;
+
+    box-shadow: 0 2px 0 #dce1eb;
+}
+
+.thumbs {
+    gap: 30px;
+}
+
+.thumbs div {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.thumbs span {
+    font-size: 9px;
+    color: #9299a8;
+}
+
+
+/* DIVIDER */
+
+.divider {
+    height: 1px;
+    background: #edf0f5;
+    margin-top: 25px;
+}
+
+
+/* INSTRUCTIONS */
+
+.instructions {
+    padding-bottom: 10px;
+}
+
+.instruction {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+
+    margin-top: 20px;
+}
+
+.number {
+    font-size: 11px;
+    font-weight: bold;
+    color: #526bb9;
+}
+
+.instruction p {
+    font-size: 11px;
+    line-height: 1.6;
+    color: #747e91;
+}
+
+
+/* FOOTER */
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 35px;
+    padding-top: 20px;
+
+    border-top: 1px solid #e8eaf0;
+
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: #a0a7b4;
+}
+
+
+/* RESPONSIVE DESIGN */
+
+@media (max-width: 850px) {
+
+    .page {
+        padding: 25px 20px;
+    }
+
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+
+    .controls {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+}
+
+
+@media (max-width: 550px) {
+
+    .header {
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .header-status {
+        font-size: 8px;
+    }
+
+    .logo h1 {
+        font-size: 23px;
+    }
+
+    .controls {
+        grid-template-columns: 1fr;
+    }
+
+    .footer {
+        font-size: 8px;
+    }
+
+}

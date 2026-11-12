@@ -35,14 +35,17 @@ let fingering = {
 
 function setup() {
 
-  // Crear canvas
-  let cnv = createCanvas(800, 800);
+  // Crear canvas con proporciones horizontales
+  let cnv = createCanvas(800, 650);
+
+  // Introducir canvas en el contenedor HTML
+  cnv.parent("instrument-stage");
 
   // Imagen SVG como fondo
   cnv.style("background-image", 'url("ocarina vector.svg")');
   cnv.style("background-repeat", "no-repeat");
   cnv.style("background-position", "center");
-  cnv.style("background-size", "750px 592px");
+  cnv.style("background-size", "95% 95%");
 
   // Crear oscilador
   oscillator = new p5.Oscillator("sine");
@@ -55,32 +58,49 @@ function setup() {
 }
 
 
+
 function draw() {
 
   clear();
 
+  // Dibujar los agujeros de la ocarina
   drawHoles();
 
-  // Indicador de funcionamiento
-  noStroke();
-  fill(100);
+  // Configuración general de textos
   textAlign(CENTER, CENTER);
-  textSize(16);
+  noStroke();
 
-  text("USA AS TECLAS PARA TOCAR", 400, 530);
-
-  // Mostrar nota musical
+  // Indicador de nota
   fill(30, 65, 100);
-  textSize(32);
+  textSize(38);
   textStyle(BOLD);
 
   text(currentNote, 400, 475);
 
+  // Línea decorativa debajo de la nota
+  stroke(74, 157, 211);
+  strokeWeight(3);
+  line(365, 505, 435, 505);
+
+  // Instrucciones
+  noStroke();
+  fill(100, 115, 125);
+  textSize(14);
   textStyle(NORMAL);
+
+  text("USA LAS TECLAS PARA TOCAR", 400, 540);
+
+  // Texto secundario
+  fill(150);
+  textSize(11);
+
+  text("PULSA Y MANTÉN PARA CUBRIR LOS AGUJEROS", 400, 565);
 }
 
 
+
 // Dibujar los agujeros
+
 function drawHoles() {
 
   for (let h of holes) {
@@ -89,8 +109,12 @@ function drawHoles() {
       continue;
     }
 
-    // Agujero oscuro
+    // Sombra sutil
     noStroke();
+    fill(0, 0, 0, 35);
+    ellipse(h.x, h.y + 2, h.r * 2.2);
+
+    // Agujero principal
     fill(8, 38, 64);
     ellipse(h.x, h.y, h.r * 2);
 
@@ -99,20 +123,28 @@ function drawHoles() {
 
       fill(74, 157, 211);
       stroke(12, 65, 110);
-      strokeWeight(3);
+      strokeWeight(2.5);
 
       ellipse(h.x, h.y, h.r * 2);
+
+      noStroke();
+      fill(255, 255, 255, 60);
+      ellipse(h.x - 4, h.y - 4, h.r * 0.6);
     }
 
-    // Letra correspondiente
+    // Letra de cada botón
     noStroke();
     fill(255);
     textAlign(CENTER, CENTER);
     textSize(12);
+    textStyle(BOLD);
 
     text(h.key.toUpperCase(), h.x, h.y);
   }
+
+  textStyle(NORMAL);
 }
+
 
 
 // Activar el audio del navegador

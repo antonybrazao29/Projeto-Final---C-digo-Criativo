@@ -1,18 +1,145 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Digital Ocarina</title>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/p5.min.js"></script>
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ocarina | Interactive Instrument</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/p5@2.3.4/lib/p5.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/p5.sound@0.4.1/dist/p5.sound.min.js"></script>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <main>
-    </main>
+
+    <div class="page">
+
+        <!-- CABECERA -->
+        <header class="header">
+
+            <div class="logo">
+                <h1>OCARINA<span>.</span></h1>
+                <p>INTERACTIVE MUSICAL INSTRUMENT</p>
+            </div>
+
+            <div class="header-status">
+                <span class="status-dot"></span>
+                READY TO PLAY
+            </div>
+
+        </header>
+
+
+        <!-- CONTENIDO PRINCIPAL -->
+        <main class="main-content">
+
+            <section class="instrument-section">
+
+                <div class="section-heading">
+                    <div>
+                        <h2>Play your instrument</h2>
+                        <p>Explore musical notes through keyboard interaction.</p>
+                    </div>
+                </div>
+
+                <!-- CANVAS DE P5.JS -->
+                <div id="instrument-stage"></div>
+
+                <div class="instrument-caption">
+                    <span>10 FINGER HOLES</span>
+                    <span>·</span>
+                    <span>8 PROGRAMMED NOTES</span>
+                    <span>·</span>
+                    <span>REAL-TIME AUDIO</span>
+                </div>
+
+            </section>
+
+
+            <!-- PANEL DE CONTROLES -->
+            <aside class="controls">
+
+                <div class="control-card">
+
+                    <h3>Keyboard layout</h3>
+                    <p>Use your keyboard to cover the holes.</p>
+
+                    <h4>LEFT HAND</h4>
+
+                    <div class="key-group">
+                        <kbd>Q</kbd>
+                        <kbd>W</kbd>
+                        <kbd>E</kbd>
+                        <kbd>R</kbd>
+                    </div>
+
+                    <h4>RIGHT HAND</h4>
+
+                    <div class="key-group">
+                        <kbd>Y</kbd>
+                        <kbd>U</kbd>
+                        <kbd>I</kbd>
+                        <kbd>O</kbd>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <h4>THUMB HOLES</h4>
+
+                    <div class="key-group thumbs">
+                        <div>
+                            <kbd>C</kbd>
+                            <span>LEFT</span>
+                        </div>
+
+                        <div>
+                            <kbd>N</kbd>
+                            <span>RIGHT</span>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="control-card instructions">
+
+                    <h3>How to play</h3>
+
+                    <div class="instruction">
+                        <span class="number">01</span>
+                        <p>Press a key to cover its corresponding hole.</p>
+                    </div>
+
+                    <div class="instruction">
+                        <span class="number">02</span>
+                        <p>Combine multiple keys to create different notes.</p>
+                    </div>
+
+                    <div class="instruction">
+                        <span class="number">03</span>
+                        <p>Release the keys to change the fingering.</p>
+                    </div>
+
+                </div>
+
+            </aside>
+
+        </main>
+
+
+        <!-- RODAPÉ -->
+        <footer class="footer">
+            <span>OCARINA INTERACTIVE PROJECT</span>
+            <span>DESIGNED WITH P5.JS</span>
+        </footer>
+
+    </div>
 
     <script src="sketch.js"></script>
+
 </body>
 </html>
